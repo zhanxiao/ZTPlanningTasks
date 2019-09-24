@@ -22,6 +22,8 @@ namespace ZTPlanningTasksCore
 
         public static Dictionary<string, int> dictCount = new Dictionary<string, int>();
 
+        public static ZTRabbitMQBase.ZTRabbitMQBase mq = new ZTRabbitMQBase.ZTRabbitMQBase(ZTRabbitMQBase.QueueType.Send);
+
         public static async void Run()
         {
             WriteLog("定时任务程序启动", ConsoleColor.Green);
@@ -138,11 +140,13 @@ namespace ZTPlanningTasksCore
         public Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException, CancellationToken cancellationToken = default)
         {
             ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]++;
-            return Console.Out.WriteLineAsync($"JobWasExecuted,{ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]}次," + Environment.NewLine +
+            var log = $"JobWasExecuted,{ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]}次," + Environment.NewLine +
                 $"上次执行时间：{(context.PreviousFireTimeUtc.HasValue ? context.PreviousFireTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff") : "")}" + Environment.NewLine +
                 $"本次执行时间：{context.FireTimeUtc.ToString("yyyy-MM-dd HH:mm:ss,fff")}" + Environment.NewLine +
                 $"下次执行时间：{context.NextFireTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff")}" + Environment.NewLine +
-                $"异常信息：{(jobException == null ? "" : jobException.InnerException.InnerException.Message)}");
+                $"异常信息：{(jobException == null ? "" : jobException.InnerException.InnerException.Message)}";
+            ZTPlanningTasks.mq.Write(log); 
+            return Console.Out.WriteLineAsync(log);
         }
     }
 
