@@ -15,6 +15,8 @@ namespace JobTest002
             var d = 0;
             //var a = 2 / d;
             return Console.Out.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "：JobTest002");           
+
+            
         }
     }
 }

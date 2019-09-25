@@ -128,19 +128,19 @@ namespace ZTPlanningTasksCore
         public Task JobExecutionVetoed(IJobExecutionContext context, CancellationToken cancellationToken = default)
         {
             //return Console.Out.WriteLineAsync("JobExecutionVetoed");            
-            return Task.Delay(0);
+            return Task.CompletedTask;
         }
 
         public Task JobToBeExecuted(IJobExecutionContext context, CancellationToken cancellationToken = default)
         {
             //return Console.Out.WriteLineAsync("JobToBeExecuted");
-            return Task.Delay(0);
+            return Task.CompletedTask;
         }
 
         public Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException, CancellationToken cancellationToken = default)
         {
             ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]++;
-            var log = $"JobWasExecuted,{ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]}次," + Environment.NewLine +
+            var log = $"{context.JobDetail.Key.Name},{ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]}次," + Environment.NewLine +
                 $"上次执行时间：{(context.PreviousFireTimeUtc.HasValue ? context.PreviousFireTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff") : "")}" + Environment.NewLine +
                 $"本次执行时间：{context.FireTimeUtc.ToString("yyyy-MM-dd HH:mm:ss,fff")}" + Environment.NewLine +
                 $"下次执行时间：{context.NextFireTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff")}" + Environment.NewLine +
@@ -155,22 +155,22 @@ namespace ZTPlanningTasksCore
         public string Name => "TriggerListener";
         public Task TriggerComplete(ITrigger trigger, IJobExecutionContext context, SchedulerInstruction triggerInstructionCode, CancellationToken cancellationToken = default)
         {
-            return Task.Delay(0);
+            return Task.CompletedTask;
         }
 
         public Task TriggerFired(ITrigger trigger, IJobExecutionContext context, CancellationToken cancellationToken = default)
         {
-            return Task.Delay(0);
+            return Task.CompletedTask;
         }
 
         public Task TriggerMisfired(ITrigger trigger, CancellationToken cancellationToken = default)
         {
-            return Task.Delay(0);
+            return Task.CompletedTask;
         }
 
         public Task<bool> VetoJobExecution(ITrigger trigger, IJobExecutionContext context, CancellationToken cancellationToken = default)
         {
-            return new Task<bool>(() => { return true; });
+            return Task.FromResult(true);
         }
     }
 }
