@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTPlanningTasksCore", "ZTPl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobTest001", "JobTest001\JobTest001.csproj", "{C4C76D4F-9E36-40CD-89A1-9AA8C3C3A483}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTPlanningTasksBase", "ZTPlanningTasksBase\ZTPlanningTasksBase.csproj", "{18A5629F-AAEE-43F1-9DBA-71A9C4A61AA9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTRabbitMQBase", "ZTRabbitMQBase\ZTRabbitMQBase.csproj", "{3C7ECA2E-781D-4420-BC66-884A7F2BD8F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestQueue", "TestQueue\TestQueue.csproj", "{470FC550-5873-4DFF-B066-4B16AC4D04F6}"
@@ -24,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobMPos", "JobMPos\JobMPos.csproj", "{1143C922-F69F-42C0-8CC0-79DE9DB02255}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZTUtils", "ZTUtils\ZTUtils.csproj", "{63F0A0ED-A368-45F8-A8FA-6C9677DCDF3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JobList", "JobList", "{BCF4BA0C-C750-43B7-B973-2FD2A1C19863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,6 @@ Global
 		{C4C76D4F-9E36-40CD-89A1-9AA8C3C3A483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C76D4F-9E36-40CD-89A1-9AA8C3C3A483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4C76D4F-9E36-40CD-89A1-9AA8C3C3A483}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18A5629F-AAEE-43F1-9DBA-71A9C4A61AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18A5629F-AAEE-43F1-9DBA-71A9C4A61AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18A5629F-AAEE-43F1-9DBA-71A9C4A61AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18A5629F-AAEE-43F1-9DBA-71A9C4A61AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C7ECA2E-781D-4420-BC66-884A7F2BD8F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C7ECA2E-781D-4420-BC66-884A7F2BD8F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C7ECA2E-781D-4420-BC66-884A7F2BD8F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -78,6 +74,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED5B1FB1-3C60-4427-B84E-26E3DB141B40} = {BCF4BA0C-C750-43B7-B973-2FD2A1C19863}
+		{C4C76D4F-9E36-40CD-89A1-9AA8C3C3A483} = {BCF4BA0C-C750-43B7-B973-2FD2A1C19863}
+		{1143C922-F69F-42C0-8CC0-79DE9DB02255} = {BCF4BA0C-C750-43B7-B973-2FD2A1C19863}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD0F2B95-C929-44CF-90EB-081923135947}

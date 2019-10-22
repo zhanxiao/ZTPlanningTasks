@@ -51,9 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ZTPlanningTasksBase\ZTPlanningTasksBase.csproj">
-      <Project>{18A5629F-AAEE-43F1-9DBA-71A9C4A61AA9}</Project>
-      <Name>ZTPlanningTasksBase</Name>
+    <ProjectReference Include="..\ZTPlanningTasksCore\ZTPlanningTasksCore.csproj">
+      <Project>{36634b7b-9c0a-4d7b-a379-8f86c4a9f88f}</Project>
+      <Name>ZTPlanningTasksCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZTUtils\ZTUtils.csproj">
       <Project>{63f0a0ed-a368-45f8-a8fa-6c9677dcdf3f}</Project>
