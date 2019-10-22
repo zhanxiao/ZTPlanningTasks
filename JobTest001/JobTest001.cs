@@ -1,15 +1,15 @@
-﻿using Quartz;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZTPlanningTasksBase;
 
 namespace JobTest001
 {
-    public class JobTest001 : IJob
+    public class JobTest001 : JobBase 
     {
-        public Task Execute(IJobExecutionContext context)
+        public override Task Execute()
         {
             return Console.Out.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "：JobTest001");
         }

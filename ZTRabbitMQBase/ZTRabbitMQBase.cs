@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Newtonsoft.Json;
 
 namespace ZTRabbitMQBase
 {
@@ -41,7 +44,7 @@ namespace ZTRabbitMQBase
             channel.QueueBind("log", "log", "log");
             properties = channel.CreateBasicProperties();
             properties.DeliveryMode = 2;
-            properties.Expiration = "3600000";
+            properties.Expiration = "604800000"; //7天
             properties.Priority = 5;
 
             //consumer = new DefaultBasicConsumer(channel);
@@ -59,6 +62,14 @@ namespace ZTRabbitMQBase
         public bool Write(string message)
         {
             var body = Encoding.UTF8.GetBytes(message);
+            channel.BasicPublish("log", "log", properties, body);
+            return true;
+        }
+
+        public bool Write(TJobLog log)
+        {
+            var json = JsonConvert.SerializeObject(log);
+            var body = Encoding.UTF8.GetBytes(json);
             channel.BasicPublish("log", "log", properties, body);
             return true;
         }
@@ -102,5 +113,19 @@ namespace ZTRabbitMQBase
     {
         Send,
         Receive
+    }
+
+    public class TJobLog
+    {
+        public int Id { get; set; }
+        public string JobName { get; set; }
+        public string JobGroup { get; set; }
+        public DateTime PreviousTime { get; set; }
+        public DateTime CurrentTime { get; set; }
+        public DateTime NextTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int Times { get; set; }
+        public string Exception { get; set; }
     }
 }

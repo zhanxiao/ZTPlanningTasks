@@ -20,7 +20,7 @@ namespace TestQueue
             Program p = new Program();
             while(true)
             {
-                p.Write(Guid.NewGuid().ToString());
+                p.Write(Guid.NewGuid().ToString());                
             }
             Console.WriteLine("End");
             Console.ReadLine();

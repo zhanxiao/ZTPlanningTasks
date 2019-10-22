@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ZTPlanningTasksBase
 {
-    public abstract class JobBase : IJob
+    public abstract class JobBase : MarshalByRefObject, IJob
     {
         public Task Execute(IJobExecutionContext context)
         {

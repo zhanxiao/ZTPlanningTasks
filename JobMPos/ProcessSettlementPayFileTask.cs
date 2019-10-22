@@ -1,16 +1,16 @@
-﻿using Quartz;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZTPlanningTasksBase;
 using ZTUtils;
 
 namespace JobMPos
 {
-    public class ProcessSettlementPayFileTask : IJob
+    public class ProcessSettlementPayFileTask : JobBase 
     {
-        public Task Execute(IJobExecutionContext context)
+        public override Task Execute()
         {
             string url = "http://localhost:8322/MPOSPayment_server/ProcessSettlementPayFileTask";
             HttpUtils.HttpGet(url);

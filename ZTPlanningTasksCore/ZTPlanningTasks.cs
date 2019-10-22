@@ -32,19 +32,20 @@ namespace ZTPlanningTasksCore
             await sched.Start(cts.Token);
 
             TasksDataBase tdb = new TasksDataBase();
-            List<TasksEntity> list = tdb.Get();
+            List<TasksEntity> list = tdb.Get();//从任务表读取需要启动的任务
             foreach(TasksEntity task in list)
             {
                 //StartJob("JobTest002", "JobTest002.dll", "JobTest002.JobTest002", "");
-                dictCount.Add(task.JobName, 0);
-                bool result = await StartJob(task);
-                if (result)
+                dictCount.Add(task.JobName, 0);//任务记数加入计数字典
+                bool result = await StartJob(task);//启动任务
+                if (result)//任务启动成功修改状态
                 {
                     task.State = 1;
                     tdb.UpdateState(task);
                 }
             }
 
+            //通过管道读取命令
             using (NamedPipeServerStream server = new NamedPipeServerStream("ZTPlanningTasksCore", PipeDirection.InOut, 1))
             {
                 while (true)
@@ -108,6 +109,10 @@ namespace ZTPlanningTasksCore
             await sched.DeleteJob(new JobKey(jobName));
         }
 
+        /// <summary>
+        /// 执行命令
+        /// </summary>
+        /// <param name="command"></param>
         static void Execute(string command)
         {
 
@@ -138,12 +143,14 @@ namespace ZTPlanningTasksCore
         }
 
         public Task JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException, CancellationToken cancellationToken = default)
-        {
+        {   
             ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]++;
-            var log = $"{context.JobDetail.Key.Name},{ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]}次," + Environment.NewLine +
+            var log = $"{context.JobDetail.Key.Name},{context.JobDetail.Key.Group},{ZTPlanningTasks.dictCount[context.JobDetail.Key.Name]}次," + Environment.NewLine +
                 $"上次执行时间：{(context.PreviousFireTimeUtc.HasValue ? context.PreviousFireTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff") : "")}" + Environment.NewLine +
                 $"本次执行时间：{context.FireTimeUtc.ToString("yyyy-MM-dd HH:mm:ss,fff")}" + Environment.NewLine +
                 $"下次执行时间：{context.NextFireTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff")}" + Environment.NewLine +
+                $"开始执行时间：{context.Trigger.StartTimeUtc.ToString("yyyy-MM-dd HH:mm:ss,fff")}" +
+                $"结束执行时间：{(context.Trigger.EndTimeUtc.HasValue ? context.Trigger.EndTimeUtc.Value.ToString("yyyy-MM-dd HH:mm:ss,fff") : "")}" +
                 $"异常信息：{(jobException == null ? "" : jobException.InnerException.InnerException.Message)}";
             ZTPlanningTasks.mq.Write(log); 
             return Console.Out.WriteLineAsync(log);
