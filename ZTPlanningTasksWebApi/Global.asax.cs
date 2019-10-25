@@ -19,5 +19,25 @@ namespace ZTPlanningTasksWebApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if(HttpContext.Current.Request.HttpMethod == "OPTIONS")
+            {
+                HttpContext.Current.Response.StatusCode = 200;
+                HttpContext.Current.Response.SubStatusCode = 200;
+                HttpContext.Current.Response.End();
+            }
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            var res = HttpContext.Current.Response;
+            //res.Headers.Add("Access-Control-Allow-Origin", "http://localhost:9527");
+            res.Headers.Add("Access-Control-Allow-Headers", "Content-Type, api_key, Authorization, x-requested-with");
+            res.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            res.Headers.Add("Access-Control-Allow-Credentials", "true");
+            res.Headers.Add("Cache-Control", "no-cache");
+        }
     }
 }

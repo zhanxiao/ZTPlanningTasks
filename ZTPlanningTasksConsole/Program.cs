@@ -10,16 +10,18 @@ namespace ZTPlanningTasksConsole
         private static extern bool SetConsoleCtrlHandler(ControlCtrlDelegate HandlerRoutine, bool Add);
         private static ControlCtrlDelegate cancelHandler = new ControlCtrlDelegate(HandlerRoutine);
 
+        static ZTPlanningTasksCore.ZTPlanningTasks ztPlanningTasks = new ZTPlanningTasksCore.ZTPlanningTasks();
+
         public static bool HandlerRoutine(int CtrlType)
         {
             switch (CtrlType)
             {
                 case 0:
-                    ZTPlanningTasksCore.ZTPlanningTasks.End();
+                    ztPlanningTasks.End();
                     Console.WriteLine("0工具被强制关闭"); //Ctrl+C关闭
                     break;
                 case 2:
-                    ZTPlanningTasksCore.ZTPlanningTasks.End();
+                    ztPlanningTasks.End();
                     Console.WriteLine("2工具被强制关闭");//按控制台关闭按钮关闭                    
                     break;
             }
@@ -30,7 +32,7 @@ namespace ZTPlanningTasksConsole
         static void Main(string[] args)
         {
             SetConsoleCtrlHandler(cancelHandler, true);
-            ZTPlanningTasksCore.ZTPlanningTasks.Run();
+            ztPlanningTasks.Run();
         }
     }
 }

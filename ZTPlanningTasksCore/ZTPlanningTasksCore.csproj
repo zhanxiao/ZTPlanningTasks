@@ -50,7 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="DataBase\DataBase.cs" />
+    <Compile Include="DataBase\JobLogDataBase.cs" />
     <Compile Include="DataBase\TasksDataBase.cs" />
+    <Compile Include="Entity\JobLogEntity.cs" />
     <Compile Include="Entity\TasksEntity.cs" />
     <Compile Include="JobBase.cs" />
     <Compile Include="ZTPlanningTasks.cs" />
