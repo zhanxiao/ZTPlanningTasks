@@ -34,10 +34,10 @@ namespace ZTPlanningTasksWebApi
         {
             var res = HttpContext.Current.Response;
             //res.Headers.Add("Access-Control-Allow-Origin", "http://localhost:9527");
-            res.Headers.Add("Access-Control-Allow-Headers", "Content-Type, api_key, Authorization, x-requested-with");
-            res.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-            res.Headers.Add("Access-Control-Allow-Credentials", "true");
-            res.Headers.Add("Cache-Control", "no-cache");
+            //res.Headers.Add("Access-Control-Allow-Headers", "Content-Type, api_key, Authorization, x-requested-with");
+            //res.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            //res.Headers.Add("Access-Control-Allow-Credentials", "true");
+            //res.Headers.Add("Cache-Control", "no-cache");
         }
     }
 }

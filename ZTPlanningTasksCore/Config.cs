@@ -30,6 +30,6 @@ namespace ZTPlanningTasksCore
             return instance;
         }
 
-        public string ConnectionString { get; set; }
+        public string ConnectionString { get; }
     }
 }
